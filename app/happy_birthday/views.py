@@ -23,6 +23,8 @@ def retrieve_username(username=None):
 def add_user(username=None):
     data = request.get_json()
     data['username'] = username
+    data['dateOfBirth'] = datetime.strptime(data['dateOfBirth'], '%Y-%m-%d').isoformat()
     schema = UserDetailsSchema()
     schema.load(data)
-    return jsonify(schema.dump(data)), HTTPStatus.CREATED
+    print(data)
+    return jsonify(data), HTTPStatus.CREATED
