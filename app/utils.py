@@ -10,7 +10,7 @@ CONFIG_NAME_MAPPER = {
 }
 
 def get_config(config_name=None):
-    flask_config_name = os.getenv('FLASK_CONFIG', 'development')
+    flask_config_name = os.getenv('ENVIRONMENT', 'development')
     if config_name is not None:
         flask_config_name = config_name
     return import_string(CONFIG_NAME_MAPPER[flask_config_name])
