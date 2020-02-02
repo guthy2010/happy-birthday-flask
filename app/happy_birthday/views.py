@@ -22,12 +22,12 @@ def retrieve_username(username=None):
         except Exception:
             return '{} not found!'.format(username), HTTPStatus.BAD_REQUEST
 
-        users = Users.query.all()
-        schema = UserDetailsSchema(many=True).dump(users)
+    users = Users.query.all()
+    schema = UserDetailsSchema(many=True).dump(users)
 
     return jsonify(schema), HTTPStatus.OK
 
-
+#Add methods for PUT and POST
 @happy_birthday.route('/<string:username>', methods = ['POST','PUT'], strict_slashes=False)
 def add_user(username=None):
     data = request.get_json()

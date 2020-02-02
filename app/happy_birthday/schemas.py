@@ -8,7 +8,7 @@ class UserDetailsSchema(Schema):
     username = fields.Str(required=True)
     dateOfBirth = fields.DateTime(required=True)
 
-
+#Validate username
     @validates('username')
     def validate_username(self, username, **kwargs):
         if not username.isalpha():
@@ -20,13 +20,13 @@ class UserDetailsSchema(Schema):
                 '{username}" user already exists.'.format(username=username)
             )
 
-
+#Form proper date input
     @pre_load
     def clean_userdata(self,data, **kwargas):
         data['dateOfBirth'] = datetime.strptime(data['dateOfBirth'], '%Y-%m-%d').isoformat()
         return data
 
-
+#commit to DB
     @post_load
     def post_datacenter(self,data,**kwargs):
         user = Users(**data)
@@ -34,7 +34,7 @@ class UserDetailsSchema(Schema):
         db.session.commit()
         self.instance = user
 
-
+#calculate return
     @post_dump
     def calculate_birthday(self,data,**kwargs):
         date = datetime.strptime(data['dateOfBirth'], "%Y-%m-%dT%H:%M:%S")

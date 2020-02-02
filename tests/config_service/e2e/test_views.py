@@ -58,7 +58,7 @@ def test_put_user(session, test_client, sample_post_data1):
         content_type='application/json'
     )
     assert response.status_code == HTTPStatus.CREATED
-## Testing put with bad inpu
+## Testing put with bad input
     response = test_client.put(
         '/hello/num923720',
         data=json.dumps(sample_post_data1),
